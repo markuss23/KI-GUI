@@ -1,5 +1,17 @@
 # KI-GUI
 
+## 01
+
+Obsah Prvího zachytnéo bodu.
+
+- Co je to API
+  - Rozdíly
+- OpenAPI json + swagger
+- Depedency injection
+- FastApi vs Flask vs Django
+- Poetry a proč
+- Hello world!
+
 ## Co je to API?
 
 Application Programming Interface (API) je soubor procedur, funkcí, protokolů a knihoven, který se využívá při vývoji softwaru.
