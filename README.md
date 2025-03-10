@@ -7,7 +7,7 @@ Obsah Prvího zachytnéo bodu.
 - Co je to API
   - Rozdíly
 - OpenAPI json + swagger
-- Depedency injection
+- Depedency injection - *otázka, zda neposunout do další sekce*
 - FastApi vs Flask vs Django
 - Poetry a proč
 - Hello world!
