@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  ki-gui-api:
+    build: .
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ./api:/code/api
+    

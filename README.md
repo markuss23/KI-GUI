@@ -1,5 +1,18 @@
 # KI-GUI
 
+## Export requirements pomocí poetry
+
+`poetry export --without-hashes --format=requirements.txt > requirements.txt`
+
+## Instalace projektu z github
+
+1. `git clone <repo>`
+2. `cd <repo>`
+3. `pip install virtualenv`
+4. `virtualenv .venv`
+5. `source .venv/bin/activate`
+6. `pip install -r requirements.txt`
+
 ## 01
 
 Obsah Prvího zachytnéo bodu.
@@ -7,10 +20,9 @@ Obsah Prvího zachytnéo bodu.
 - Co je to API
   - Rozdíly
 - OpenAPI json + swagger
-- Depedency injection - *otázka, zda neposunout do další sekce*
 - FastApi vs Flask vs Django
-- Poetry a proč
-- Hello world!
+- Poetry a proč?
+- Ruff a proč?
 
 ## Co je to API?
 
