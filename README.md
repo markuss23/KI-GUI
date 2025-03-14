@@ -54,6 +54,8 @@ OAS slouží jako centrální zdroj během celého životního cyklu API:
 - **Zkušenost vývojářů**: Pohání dokumentaci, interaktivní prostředí a generování SDK  
 - **Testování**: Umožňuje kontraktní testování a bezpečnostní ověření oproti specifikaci  
 
+![alt text](What-is-OpenAPI-Simple-API-Lifecycle-Vertical.png)
+
 ### Výhody  
 
 - Poskytuje „jedinou verzi pravdy“ v celém životním cyklu API  
@@ -63,5 +65,7 @@ OAS slouží jako centrální zdroj během celého životního cyklu API:
 - Podporuje jak přístup „API-first“, tak „code-first“  
 
 OAS efektivně propojuje celý životní cyklus API tím, že poskytuje konzistentní způsob přenosu informací mezi jednotlivými fázemi. To organizacím pomáhá zajistit kvalitu a konzistenci při vývoji API.
+
+[What is OpenAPI](https://www.openapis.org/what-is-openapi)
 
 ###
