@@ -136,7 +136,7 @@ Při výběru frameworku pro vývoj webových aplikací nebo API v Pythonu se ne
 - **Architektura**: Založený na **Werkzeug WSGI** toolkitu a **Jinja2** template enginu  
 - **Klíčové vlastnosti**:
   - Flexibilní architektura s možností integrace rozšíření podle potřeby
-  - Architektura Model-View-Controller (MVC) 
+  - Architektura Model-View-Controller (MVC)
   - Jednoduché routování, nízká režie  
   - Není určeno pro asynchronní operace (nutno doplnit knihovnami)  
 - **Použití**:  
