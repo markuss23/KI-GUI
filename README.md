@@ -161,3 +161,78 @@ HTTP protokol definuje metody požadavků, označované jako HTTP slovesa, kter�
 ### PATCH
 
 - Metoda PATCH aplikuje na prostředek částečné změny.
+
+## RUFF
+
+Extrémně rychlý Python linter a formátovač kódu, napsaný v Rustu.
+
+### Linter
+
+Je nástroj, který automaticky analyzuje zdrojový kód a hledá chyby, špatné praktiky nebo porušení stylových pravidel.
+
+### Code formatter
+
+Je nástroj, který automaticky upravuje formátování kódu, aby byl čitelný a konzistentní.
+
+[Ruff](https://docs.astral.sh/ruff/)
+
+## Poetry
+
+Poetry je nástroj pro `dependency management` and `packaging` v jazyce Python.
+
+Nadefinuje se jaké knihovny projekt potřebuje. Poetry si je nainstaluje nebo aktualizuje. Udržuje si seznam verzí (lockfile), aby se vše instalovalo stejně pokaždé, a umí tvůj projekt připravit k distribuci.
+
+### Depedency management
+
+Je správa knihoven a balíčků, které tvůj projekt potřebuje. Zajišťuje správnou instalaci, konzistentní verze a kompatibilitu mezi balíčky.
+
+Např. když se instaluje fastapi, tak se nainstalují všechny potřebné balíčky, na kterých závísí.
+
+### Packaging
+
+Packaging (balíčkování) v Pythonu znamená přípravu kódu do podoby package, který lze snadno sdílet a instalovat.
+
+### Vytvoření projektu
+
+1. `poetry new poetry-demo`
+2. `poetry install` - instalace prostředí podle `pyproject.toml`
+3. `poetry add fastapi` - přidání nové knihovny
+4. `poetry run python main.py` - spuštění souboru
+5. `poetry env activate` - aktivace venv
+
+### Co je to pyproject.toml
+
+Soubor `pyproject.tom`l je zde nejdůležitější. To bude organizovat váš projekt a jeho závislosti. Zatím to vypadá takto:
+
+```toml
+[project]
+name = "poetry-demo"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Maek asdreme", email = "radagames@wot.cz"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+
+### Depedency groups
+
+V Poetry umožňují `dependency groups` organizovat závislosti podle jejich účelu.
+
+**Hlavní závislosti** (běžně v`tool.poetry.dependencies`) jsou nutné pro běh projektu.
+
+**Další skupiny závislostí** slouží například pro testování, dokumentaci nebo vývoj.
+
+1. `poetry add pytest --group test`
+2. `poetry install --without test,docs`
+3. `poetry install --with docs`
+4. `poetry install --only docs`
+
+[Poetry](https://python-poetry.org/docs/)
