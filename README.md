@@ -13,6 +13,14 @@
 5. `source .venv/bin/activate`
 6. `pip install -r requirements.txt`
 
+## Spuštění projektu v dockeru
+
+projekt běží na adrese `0.0.0.0:8000`
+
+`docker-compose up --build`
+
+
+
 ## 01
 
 Obsah Prvího zachytnéo bodu.
@@ -54,7 +62,7 @@ OAS slouží jako centrální zdroj během celého životního cyklu API:
 - **Zkušenost vývojářů**: Pohání dokumentaci, interaktivní prostředí a generování SDK  
 - **Testování**: Umožňuje kontraktní testování a bezpečnostní ověření oproti specifikaci  
 
-![alt text](What-is-OpenAPI-Simple-API-Lifecycle-Vertical.png)
+![alt text](./images/What-is-OpenAPI-Simple-API-Lifecycle-Vertical.png)
 
 ### Výhody  
 
@@ -91,5 +99,69 @@ Při výběru frameworku pro vývoj webových aplikací nebo API v Pythonu se ne
 | **Výhody**                 | Bezpečnost, škálovatelnost, flexibilita, rychlé prototypování, administrace                  | Výkon, rychlost vývoje API, asynchronní zpracování, OpenAPI/Swagger podpora | Flexibilita, jednoduchost, ideální pro malé aplikace a prototypy    |
 | **Nevýhody**               | Komplexní pro začátečníky, náročnější na debugování, méně vhodné pro malé projekty            | Hlavní soubory mohou být nepřehledné, chybí vestavěná bezpečnost         | Chybí vestavěná podpora cachování, ORM a asynchronizace             |
 
----
 [GeeksforGeeks – Comparison of FastAPI with Django and Flask](https://www.geeksforgeeks.org/comparison-of-fastapi-with-django-and-flask/)
+
+---
+
+
+
+## FastAPI
+
+FastAPI je moderní, rychlý (vysoce výkonný) webový framework pro vývoj API v Pythonu. Využívá standardní Python type hinty a poskytuje snadný a intuitivní způsob, jak vytvářet robustní a výkonná rozhraní.
+
+### Klíčové vlastnosti
+
+- **Rychlost**  
+  Velmi vysoký výkon, srovnatelný s NodeJS a Go (díky knihovnám Starlette a Pydantic). Patří mezi nejrychlejší Python frameworky.
+
+
+- **Méně chyb**  
+  Díky type hintům a automatické validaci snižuje množství chyb způsobených vývojáři přibližně o 40%. *
+
+- **Intuitivní prostředí**  
+  Skvělá podpora v moderních editorech – automatické doplňování kódu a méně času stráveného laděním.
+
+- **Snadné použití a učení**  
+  Navrženo pro jednoduché a rychlé osvojení. Minimalizuje potřebu čtení rozsáhlé dokumentace.
+
+- **Stručný a přehledný kód**  
+  Minimalizace duplicitního kódu, více funkcionalit z jednoho deklarovaného parametru a méně chyb při vývoji.
+
+- **Robustní a připravený na produkci**  
+  Automaticky generovaná interaktivní dokumentace (Swagger UI, ReDoc) podporuje efektivní vývoj i testování.
+
+- **Standardizace**  
+  Plná kompatibilita s otevřenými standardy pro API – OpenAPI (dříve Swagger) a JSON Schema.
+
+![alt text](./images/process-ram.png)
+
+[FastAPI – Oficiální dokumentace](https://fastapi.tiangolo.com/)
+
+
+---
+
+
+
+## HTTP
+HTTP je protokol pro přenos dat mezi klientem a serverem. Funguje na principu požadavků a odpovědí.
+
+## HTTP request methods.
+HTTP protokol definuje metody požadavků, označované jako HTTP slovesa, které určují účel a očekávaný výsledek požadavku. Metody mohou být bezpečné, idempotentní nebo kešovatelné.
+
+### GET
+- Metoda GET požaduje reprezentaci zadaného prostředku. Požadavky používající metodu GET by měly načítat pouze data a neměly by obsahovat obsah požadavku.
+
+### POST
+- Metoda POST odešle entitu zadanému prostředku, což často způsobí změnu stavu nebo vedlejší efekty na serveru.
+
+
+### PUT
+ - Metoda PUT nahradí všechny aktuální reprezentace cílového prostředku obsahem požadavku.
+
+### DELETE
+- Metoda DELETE odstraní zadaný prostředek.
+
+
+### PATCH
+- Metoda PATCH aplikuje na prostředek částečné změny.
+
