@@ -19,8 +19,6 @@ projekt běží na adrese `0.0.0.0:8000`
 
 `docker-compose up --build`
 
-
-
 ## 01
 
 Obsah Prvího zachytnéo bodu.
@@ -103,8 +101,6 @@ Při výběru frameworku pro vývoj webových aplikací nebo API v Pythonu se ne
 
 ---
 
-
-
 ## FastAPI
 
 FastAPI je moderní, rychlý (vysoce výkonný) webový framework pro vývoj API v Pythonu. Využívá standardní Python type hinty a poskytuje snadný a intuitivní způsob, jak vytvářet robustní a výkonná rozhraní.
@@ -113,7 +109,6 @@ FastAPI je moderní, rychlý (vysoce výkonný) webový framework pro vývoj API
 
 - **Rychlost**  
   Velmi vysoký výkon, srovnatelný s NodeJS a Go (díky knihovnám Starlette a Pydantic). Patří mezi nejrychlejší Python frameworky.
-
 
 - **Méně chyb**  
   Díky type hintům a automatické validaci snižuje množství chyb způsobených vývojáři přibližně o 40%. *
@@ -137,31 +132,32 @@ FastAPI je moderní, rychlý (vysoce výkonný) webový framework pro vývoj API
 
 [FastAPI – Oficiální dokumentace](https://fastapi.tiangolo.com/)
 
-
 ---
 
-
-
 ## HTTP
+
 HTTP je protokol pro přenos dat mezi klientem a serverem. Funguje na principu požadavků a odpovědí.
 
-## HTTP request methods.
+## HTTP request methods
+
 HTTP protokol definuje metody požadavků, označované jako HTTP slovesa, které určují účel a očekávaný výsledek požadavku. Metody mohou být bezpečné, idempotentní nebo kešovatelné.
 
 ### GET
+
 - Metoda GET požaduje reprezentaci zadaného prostředku. Požadavky používající metodu GET by měly načítat pouze data a neměly by obsahovat obsah požadavku.
 
 ### POST
+
 - Metoda POST odešle entitu zadanému prostředku, což často způsobí změnu stavu nebo vedlejší efekty na serveru.
 
-
 ### PUT
- - Metoda PUT nahradí všechny aktuální reprezentace cílového prostředku obsahem požadavku.
+
+- Metoda PUT nahradí všechny aktuální reprezentace cílového prostředku obsahem požadavku.
 
 ### DELETE
+
 - Metoda DELETE odstraní zadaný prostředek.
 
-
 ### PATCH
-- Metoda PATCH aplikuje na prostředek částečné změny.
 
+- Metoda PATCH aplikuje na prostředek částečné změny.
