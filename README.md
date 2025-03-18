@@ -236,3 +236,7 @@ V Poetry umožňují `dependency groups` organizovat závislosti podle jejich ú
 4. `poetry install --only docs`
 
 [Poetry](https://python-poetry.org/docs/)
+
+## 02
+
+## Pydantic
