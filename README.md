@@ -240,3 +240,61 @@ V Poetry umožňují `dependency groups` organizovat závislosti podle jejich ú
 ## 02
 
 ## Pydantic
+
+Pydantic je nejpoužívanější knihovna pro validaci dat v jazyce Python.
+
+### Proč používat Pydantic?
+
+- **Typové nápovědy** — s Pydanticem je validace schématu a serializace řízena typovými anotacemi. Méně učení, méně psaní kódu a integrace s IDE a nástroji statické analýzy.
+
+- **Rychlost** — jádro validační logiky Pydanticu je napsáno v jazyce Rust. Díky tomu patří Pydantic mezi nejrychlejší knihovny pro validaci dat v jazyce Python.
+
+- **Schéma JSON** — modely Pydantic mohou emitovat schéma JSON, což umožňuje snadnou integraci s dalšími nástroji.
+
+- **Striktní a laxní režim** — Pydantic může běžet buď ve striktním režimu (kdy se data nekonvertují), nebo v laxním režimu, kdy se Pydantic v případě potřeby snaží data přimět ke správnému typu.
+
+- **Datové třídy, TypedDicts a další** — Pydantic podporuje validaci mnoha standardních typů knihoven včetně datových tříd a TypedDict.
+
+- **Přizpůsobení** — Pydantic umožňuje vlastní validátory a serializátory, které mění způsob zpracování dat mnoha výkonnými způsoby.
+
+- **Ekosystém** — Pydantic používá přibližně 8 000 balíčků na PyPI, včetně masově populárních knihoven jako FastAPI, huggingface, Django Ninja, SQLModel a LangChain.
+
+- **Battle-tested** — Pydantic je stahován více než 70 milionkrát měsíčně a používají ho všechny společnosti FAANG a 20 z 25 největších společností na burze NASDAQ. Pokud se snažíte s Pydanticem něco udělat, pravděpodobně už to udělal někdo jiný.
+
+[Oficiální dokumentace Pydantic](https://docs.pydantic.dev/latest/)
+
+
+### Validátory
+Kromě vestavěných validačních funkcí Pydanticu můžete využít vlastní validátory na úrovni polí a modelů, abyste vynutili složitější omezení a zajistili integritu dat.
+
+Lze použít čtyři různé typy validátorů. Všechny lze definovat pomocí anotovaného vzoru nebo pomocí dekorátoru `field_validator()`, který se aplikuje na metodu třídy
+
+[Pydantic - Field Validators](https://docs.pydantic.dev/latest/concepts/validators/#field-validators)
+
+
+### Nastavení a enviroment variables
+
+Ve mnoha případech může vaše aplikace potřebovat externí nastavení nebo konfigurace, například tajné klíče, přihlašovací údaje k databázi, přístupové údaje k e-mailovým službám atd.
+
+Většina těchto nastavení je proměnná (může se měnit), například adresy URL databází. Mnohá z nich mohou být také citlivá, například tajné klíče.
+
+Z tohoto důvodu je běžné poskytovat tato nastavení prostřednictvím proměnných prostředí, které jsou načítány aplikací.
+
+[FastAPI - Advanced Settings](https://fastapi.tiangolo.com/advanced/settings/)
+
+
+### Pydantic Settings
+Naštěstí Pydantic poskytuje skvělou užití pro zpracování těchto nastavení pocházejících z proměnných prostředí pomocí nástroje Pydantic.
+
+### Použití
+
+Pokud vytvoříte model, který dědí od `BaseSettings`, inicializátor modelu se pokusí určit hodnoty všech polí, která nebyla předána jako pojmenované argumenty, načtením z proměnných prostředí. (Výchozí hodnoty se stále použijí, pokud odpovídající proměnná prostředí není nastavena.)
+
+To usnadňuje:
+
+- Vytvoření jasně definované konfigurační třídy aplikace s typovými anotacemi
+- Automatické načítání úprav konfigurace z proměnných prostředí
+- Ruční přepsání konkrétních nastavení v inicializátoru, pokud je to potřeba (např. při jednotkových testech)
+
+[Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
+
