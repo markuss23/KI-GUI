@@ -268,12 +268,12 @@ Pydantic je nejpoužívanější knihovna pro validaci dat v jazyce Python.
 Zjednodušeně lze říci, že pro typ `T` existují metadata `x`: `Annotated[T,x]`. Metadata jsou data, která poskytují informaci o jiných datech
 
 ### Validátory
+
 Kromě vestavěných validačních funkcí Pydanticu můžete využít vlastní validátory na úrovni polí a modelů, abyste vynutili složitější omezení a zajistili integritu dat.
 
 Lze použít čtyři různé typy validátorů. Všechny lze definovat pomocí anotovaného vzoru nebo pomocí dekorátoru `field_validator()`, který se aplikuje na metodu třídy
 
 [Pydantic - Field Validators](https://docs.pydantic.dev/latest/concepts/validators/#field-validators)
-
 
 ### Nastavení a enviroment variables
 
@@ -285,8 +285,8 @@ Z tohoto důvodu je běžné poskytovat tato nastavení prostřednictvím promě
 
 [FastAPI - Advanced Settings](https://fastapi.tiangolo.com/advanced/settings/)
 
-
 ### Pydantic Settings
+
 Naštěstí Pydantic poskytuje skvělou užití pro zpracování těchto nastavení pocházejících z proměnných prostředí pomocí nástroje Pydantic.
 
 ### Použití
@@ -300,4 +300,3 @@ To usnadňuje:
 - Ruční přepsání konkrétních nastavení v inicializátoru, pokud je to potřeba (např. při jednotkových testech)
 
 [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
-
