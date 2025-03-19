@@ -12,8 +12,8 @@ app = FastAPI(
 
 
 # Funkce pro zpracování závislosti
-def ahoj(item_id) -> None:
-    print("mam svoje id a mohu s ním dělat co chci ", item_id)
+def ahoj(item_id) -> str:
+    return ("mam svoje id a mohu s ním dělat co chci ", item_id)
 
 
 # Závislost pro ověření API klíče
