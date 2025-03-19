@@ -300,3 +300,40 @@ To usnadňuje:
 - Ruční přepsání konkrétních nastavení v inicializátoru, pokud je to potřeba (např. při jednotkových testech)
 
 [Pydantic Settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)
+
+### Dependencies
+
+FastAPI má velmi výkonný, ale intuitivní systém Dependency Injection. Je navržen tak, aby jeho použití bylo velmi jednoduché a aby každý vývojář mohl snadno integrovat další komponenty s FastAPI.
+
+#### Dependency Injection
+
+„Dependency Injection“ znamená v programování způsob, jakým může váš kód deklarovat věci, které potřebuje k tomu, aby správně fungoval a mohl je používat – tedy své „Dependencies“ (závislosti). A poté se tento systém postará o vše potřebné, aby vašemu kódu tyto požadované závislosti poskytl („injektoval“ tyto závislosti).
+
+Toto je užitečné když potřebujeme:
+
+- Mít sdílenou logiku (opakovaně používat stejnou část kódu).
+- Sdílet připojení k databázi.
+- Prosazovat bezpečnost, autentizaci, požadavky na role atd.
+- A mnoho dalších věcí…
+
+Pokud bychom chtěli princip Dependency Injection vysvětlit na jednoduchém příkladu ze skutečného světa, můžeme si to představit takto (Vygenerováno chatGPT pro dětičky):
+
+Představte si, že stavíte velké LEGO město. Každý dům, autíčko nebo strom potřebuje něco speciálního, aby dobře fungoval – třeba kolečka, dveře nebo okna. Ale kdybyste museli každý kousek hledat sami pokaždé, kdy něco stavíte, byla by to otrava a zabralo by to spoustu času.
+
+Dependency Injection je něco jako kouzelný pomocník. Vy mu řeknete:
+„Potřebuju kolečka na autíčko!“
+A on vám je rovnou přinese.
+Nebo řeknete:
+„Potřebuju dveře na dům!“
+A on vám je okamžitě dá.
+
+Nemusíte se starat o to, kde je hledat nebo jak je vyrobit – on to všechno zařídí. Díky tomu můžete rychleji a snadněji stavět svoje město.
+
+Ve světě počítačových programů to funguje podobně. Váš program řekne:
+„Potřebuju se připojit k databázi.“
+A FastAPI mu to zařídí.
+Nebo řekne:
+„Potřebuju zkontrolovat, jestli se někdo přihlásil.“
+A FastAPI to prověří za vás.
+
+Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řešit všechno okolo. Je to jako když máte super pomocníka, co za vás udělá spoustu práce!
