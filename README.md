@@ -263,6 +263,9 @@ Pydantic je nejpoužívanější knihovna pro validaci dat v jazyce Python.
 
 [Oficiální dokumentace Pydantic](https://docs.pydantic.dev/latest/)
 
+### Anotace
+
+Zjednodušeně lze říci, že pro typ `T` existují metadata `x`: `Annotated[T,x]`. Metadata jsou data, která poskytují informaci o jiných datech
 
 ### Validátory
 Kromě vestavěných validačních funkcí Pydanticu můžete využít vlastní validátory na úrovni polí a modelů, abyste vynutili složitější omezení a zajistili integritu dat.
