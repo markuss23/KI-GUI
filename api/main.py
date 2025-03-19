@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from typing import Annotated
+from fastapi import Depends, FastAPI, Path, Query
 from pydantic import BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -8,6 +9,32 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 app = FastAPI(
     docs_url="/",
 )
+
+
+# Funkce pro zpracování závislosti
+def ahoj(item_id) -> None:
+    print("mam svoje id a mohu s ním dělat co chci ", item_id)
+
+
+# Anotace pro ID
+# Slouží pro validaci ID v URL
+# Rozšiřuje základní datový typ int
+# Path() - popis parametru
+# Závislosti se používají pro validaci dat
+# Depends() - závislost vyvolá funkci a předá jí hodnotu
+# (v tomto případě ID)
+ID_PATH_ANNOTATION = Annotated[
+    int, Path(description="ID of the item", ge=0), Depends(ahoj)
+]
+
+# Anotace pro limit a offset
+# Slouží pro validaci limit a offset v URL
+# Rozšiřuje základní datový typ int
+# Query() - popis parametru
+LIMIT_QUERY_ANNOTATION = Annotated[
+    int, Query(description="Limit of items", ge=0, le=100)
+]
+OFFSET_QUERY_ANNOTATION = Annotated[int, Query(description="Offset of items", ge=0)]
 
 
 # Pydantic model pro validaci dat
@@ -36,10 +63,16 @@ class AppSettings(BaseModel):
 class SqlSettings(BaseModel):
     name: str
 
-    def get_url(self):
+    def get_url(self) -> str:
         return f"sqlite://{self.name}.db"
 
 
+# Konfigurace aplikace z .env souboru
+# Nastavení pro aplikaci a SQL
+# Pomocí SettingsConfigDict() lze nastavit
+# prefix pro proměnné prostředí
+# (výchozí je "APP_")
+# Pomocí env_nested_delimiter lze nastavit
 class Settings(BaseSettings):
     app: AppSettings
     sql: SqlSettings
@@ -65,7 +98,7 @@ def read_root() -> dict[str, str]:
 
 
 @app.get("/asd/{asd_id}")
-def read_item(asd_id) -> dict:
+def read_sitem(asd_id) -> dict:
     return {
         "asd_id": asd_id,
     }
@@ -74,6 +107,19 @@ def read_item(asd_id) -> dict:
 @app.post("/items")
 def read_items(data: Item) -> Item:
     return data
+
+
+@app.get("/items/{item_id}")
+def read_item(
+    item_id: ID_PATH_ANNOTATION,
+    limit: LIMIT_QUERY_ANNOTATION = 10,
+    offset: OFFSET_QUERY_ANNOTATION = 0,
+) -> dict:
+    return {
+        "item_id": item_id,
+        "limit": limit,
+        "offset": offset,
+    }
 
 
 @app.get("/settings")
