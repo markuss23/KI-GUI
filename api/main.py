@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import Depends, FastAPI, Path, Query
+from fastapi import Depends, FastAPI, HTTPException, Header, Path, Query
 from pydantic import BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,6 +14,13 @@ app = FastAPI(
 # Funkce pro zpracování závislosti
 def ahoj(item_id) -> None:
     print("mam svoje id a mohu s ním dělat co chci ", item_id)
+
+
+# Závislost pro ověření API klíče
+def verify_api_key(api_key: Annotated[str | None, Header()] = None) -> str:
+    if api_key != "key":
+        raise HTTPException(status_code=401, detail="Invalid API Key")
+    return api_key
 
 
 # Anotace pro ID
@@ -125,3 +132,8 @@ def read_item(
 @app.get("/settings")
 def read_settings() -> Settings:
     return settings.model_dump()
+
+
+@app.get("/secure-data")
+def get_secure_data(api_key: str = Depends(verify_api_key)) -> dict:
+    return {"message": "Access granted!", "api_key": api_key}
