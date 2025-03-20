@@ -111,9 +111,22 @@ def read_sitem(asd_id) -> dict:
     }
 
 
+class ItemNotDict:
+    def __init__(self, name, description, price):
+        self.name = name
+        self.description = description
+        self.price = price
+
+
 @app.post("/items")
 def read_items(data: Item) -> Item:
-    return data
+    # Testování validace modelu pokud není přímo dict
+    item_not_dict = ItemNotDict(name="asd", description="asd", price=1)
+    print(type(item_not_dict))
+    print(item_not_dict.__dict__)
+    print(Item.model_validate(item_not_dict, from_attributes=True))
+    #
+    return Item.model_validate(data)
 
 
 @app.get("/items/{item_id}")
