@@ -8,9 +8,8 @@
 
 1. `git clone <repo>`
 2. `cd <repo>`
-3. `pip install virtualenv`
-4. `virtualenv .venv`
-5. `source .venv/bin/activate`
+3. `python -m venv .venv`
+5. Pro Linux `source .venv/bin/activate`, Pro Windows `/.venv/Scripts/Activate.ps1`
 6. `pip install -r requirements.txt`
 
 ## Spuštění projektu v dockeru
