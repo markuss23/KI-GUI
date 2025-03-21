@@ -34,7 +34,7 @@ def endpoint_get_role(
     role_id: ID_ROLE_PATH_ANNOTATION,
     sql: SqlSessionDependency,
 ) -> Role:
-    get_role(role_id, sql)
+    return get_role(role_id, sql)
 
 
 @router.put("/{role_id}", status_code=200, operation_id="update_role")
