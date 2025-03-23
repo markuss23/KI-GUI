@@ -8,7 +8,18 @@ from api.database import SqlSessionDependency
 from sqlalchemy import select
 
 
-def is_valid_role_id(role_id: int, sql: SqlSessionDependency) -> int:
+def is_valid_role_id(
+    role_id: Annotated[
+        int,
+        Path(
+            title="Role ID",
+            description="Role ID",
+            ge=1,
+            le=9223372036854775807,  # 8 bytes int max value
+        ),
+    ],
+    sql: SqlSessionDependency,
+) -> int:
     try:
         if (
             sql.execute(
@@ -26,12 +37,4 @@ def is_valid_role_id(role_id: int, sql: SqlSessionDependency) -> int:
         raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
 
 
-ID_ROLE_PATH_ANNOTATION = Annotated[
-    int,
-    Path(
-        title="Role ID",
-        description="Role ID",
-        gt=0,
-    ),
-    Depends(is_valid_role_id),
-]
+ID_ROLE_PATH_ANNOTATION = Annotated[int, Depends(is_valid_role_id)]

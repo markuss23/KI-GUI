@@ -9,6 +9,10 @@ from api.src.routers import router
 # (výchozí je "/docs")
 app = FastAPI(
     docs_url="/",
+    responses={
+        404: {"description": "Not found"},
+        409: {"description": "Conflict"},
+    },
 )
 
 init_db()
