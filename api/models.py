@@ -21,11 +21,11 @@ class User(Base):
     __tablename__ = "users"
 
     user_id = Column(Integer, primary_key=True, nullable=False)
-    username = Column(String, nullable=False, unique=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    password_hash = Column(String, nullable=False)
-    email = Column(String, nullable=False, unique=True)
+    username = Column(String(length=255), nullable=False, unique=True)
+    first_name = Column(String(length=255), nullable=False)
+    last_name = Column(String(length=255), nullable=False)
+    password_hash = Column(String(length=255), nullable=False)
+    email = Column(String(length=255), nullable=False, unique=True)
     role_id = Column(Integer, ForeignKey("roles.role_id"), nullable=False)
     is_active = Column(Boolean, nullable=False, default=True)
 

@@ -1,0 +1,38 @@
+from fastapi import Depends, HTTPException, Path
+from sqlalchemy import select
+from typing import Annotated
+
+from api import models
+from api.database import SqlSessionDependency
+
+
+def is_valid_user_id(
+    user_id: Annotated[
+        int,
+        Path(
+            title="User ID",
+            description="User ID",
+            ge=1,
+            le=9223372036854775807,  # 8 bytes int max value
+        ),
+    ],
+    sql: SqlSessionDependency,
+) -> int:
+    try:
+        if (
+            sql.execute(
+                select(models.User).where(models.User.user_id == user_id)
+            ).scalar_one_or_none()
+            is None
+        ):
+            raise HTTPException(status_code=404, detail="User not found")
+
+        return user_id
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
+
+
+ID_USER_PATH_ANNOTATION = Annotated[int, Depends(is_valid_user_id)]
