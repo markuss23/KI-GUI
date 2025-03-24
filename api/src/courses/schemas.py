@@ -21,10 +21,10 @@ class CourseBase(BaseModel):
         max_length=1000,
         default=""
     )
-    deadline_in_days: int = Field(
+    deadline_in_days: int | None = Field(
         title="Deadline in days",
         description="Number of days for course deadline",
-        default=None,
+        default=0,
         ge=0
     ) 
     is_active: bool = Field(

@@ -8,6 +8,7 @@ from api import models
 from sqlalchemy import Select, select, update, insert
 from sqlalchemy.exc import IntegrityError
 from api.src.tasks.schemas import Task, TaskForm
+from api.utils import validate_int
 
 
 def get_tasks(sql: Session) -> list[Task]:
@@ -27,7 +28,7 @@ def create_task(task_data: TaskForm, sql: Session) -> Task:
         if (
             sql.execute(
                 select(models.Course).where(
-                    models.Course.course_id == task_data.course_id
+                    models.Course.course_id == validate_int(task_data.course_id)
                 )
             ).scalar_one_or_none()
             is None
@@ -76,7 +77,7 @@ def update_task(task_id: int, task_data: TaskForm, sql: Session) -> Task:
         if (
             sql.execute(
                 select(models.Course).where(
-                    models.Course.course_id == task_data.course_id
+                    models.Course.course_id == validate_int(task_data.course_id)
                 )
             ).scalar_one_or_none()
             is None

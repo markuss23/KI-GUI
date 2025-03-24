@@ -4,6 +4,7 @@ from sqlalchemy import Select, insert, update, select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 from sqlalchemy.exc import IntegrityError
+from api.utils import validate_int
 
 from api import models
 from api.src.users.schemas import User, UserForm
@@ -23,9 +24,10 @@ def get_users(sql: Session) -> list[User]:
 
 def create_user(user_data: UserForm, sql: Session) -> User:
     try:
+
         if (
             sql.execute(
-                select(models.Role).where(models.Role.role_id == user_data.role_id)
+                select(models.Role).where(models.Role.role_id == validate_int(user_data.role_id))
             ).scalar_one_or_none()
             is None
         ):
@@ -69,7 +71,7 @@ def update_user(user_id: int, user_data: UserForm, sql: Session) -> User:
     try:
         if (
             sql.execute(
-                select(models.Role).where(models.Role.role_id == user_data.role_id)
+                select(models.Role).where(models.Role.role_id == validate_int(user_data.role_id))
             ).scalar_one_or_none()
             is None
         ):

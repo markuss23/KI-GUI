@@ -9,6 +9,7 @@ from sqlalchemy import Row, Select, select, update, insert
 from sqlalchemy.exc import IntegrityError
 from api.src.courses.schemas import Course, CourseForm
 from sqlalchemy.sql.expression import exists
+from api.utils import validate_int
 
 
 def get_courses(sql: Session) -> list[Course]:
@@ -28,14 +29,16 @@ def create_course(course_data: CourseForm, sql: Session) -> Course:
         check: Row[tuple[bool, bool]] = sql.execute(
             select(
                 exists()
-                .where(models.User.user_id == course_data.teacher_id)
+                .where(models.User.user_id == validate_int(course_data.teacher_id))
                 .label("teacher_exists"),
                 exists()
-                .where(models.Category.category_id == course_data.category_id)
+                .where(
+                    models.Category.category_id == validate_int(course_data.category_id)
+                )
                 .label("category_exists"),
             )
         ).one()
-        
+
         if not check.teacher_exists:
             raise HTTPException(
                 status_code=404,
@@ -57,8 +60,8 @@ def create_course(course_data: CourseForm, sql: Session) -> Course:
 
         return Course.model_validate(result)
 
-    except HTTPException:
-        raise
+    except HTTPException as e:
+        raise e
 
     except IntegrityError as e:
         sql.rollback()
@@ -88,14 +91,16 @@ def update_course(course_id: int, course_data: CourseForm, sql: Session) -> Cour
         check: Row[tuple[bool, bool]] = sql.execute(
             select(
                 exists()
-                .where(models.User.user_id == course_data.teacher_id)
+                .where(models.User.user_id == validate_int(course_data.teacher_id))
                 .label("teacher_exists"),
                 exists()
-                .where(models.Category.category_id == course_data.category_id)
+                .where(
+                    models.Category.category_id == validate_int(course_data.category_id)
+                )
                 .label("category_exists"),
             )
         ).one()
-        
+
         if not check.teacher_exists:
             raise HTTPException(
                 status_code=404,

@@ -7,6 +7,8 @@ from api.database import SqlSessionDependency
 
 from sqlalchemy import select
 
+from api.utils import validate_int
+
 
 def is_valid_role_id(
     role_id: Annotated[
@@ -23,7 +25,7 @@ def is_valid_role_id(
     try:
         if (
             sql.execute(
-                select(models.Role).where(models.Role.role_id == role_id)
+                select(models.Role).where(models.Role.role_id == validate_int(role_id))
             ).scalar_one_or_none()
             is None
         ):

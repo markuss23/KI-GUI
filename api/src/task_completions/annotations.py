@@ -8,12 +8,12 @@ from api.database import SqlSessionDependency
 from sqlalchemy import select
 
 
-def is_valid_category_id(
-    category_id: Annotated[
+def is_valid_task_completion_id(
+    task_completion_id: Annotated[
         int,
         Path(
-            title="Category ID",
-            description="Category ID",
+            title="TaskCompletion ID",
+            description="TaskCompletion ID",
             ge=1,
             le=9223372036854775807,  # 8 bytes int max value
         ),
@@ -23,13 +23,13 @@ def is_valid_category_id(
     try:
         if (
             sql.execute(
-                select(models.Category).where(models.Category.category_id == category_id)
+                select(models.TaskCompletion).where(models.TaskCompletion.task_completion_id == task_completion_id)
             ).scalar_one_or_none()
             is None
         ):
-            raise HTTPException(status_code=404, detail="Category not found")
+            raise HTTPException(status_code=404, detail="TaskCompletion not found")
 
-        return category_id
+        return task_completion_id
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -37,4 +37,4 @@ def is_valid_category_id(
         raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
 
 
-ID_CATEGORY_PATH_ANNOTATION = Annotated[int, Depends(is_valid_category_id)]
+ID_TASK_COMPLETION_PATH_ANNOTATION = Annotated[int, Depends(is_valid_task_completion_id)]
