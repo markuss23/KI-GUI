@@ -5,9 +5,10 @@ from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 from sqlalchemy.orm import Session
 
 from api import models
-from sqlalchemy import Select, select, update, insert
+from sqlalchemy import Row, Select, select, update, insert
 from sqlalchemy.exc import IntegrityError
 from api.src.courses.schemas import Course, CourseForm
+from sqlalchemy.sql.expression import exists
 
 
 def get_courses(sql: Session) -> list[Course]:
@@ -24,25 +25,23 @@ def get_courses(sql: Session) -> list[Course]:
 
 def create_course(course_data: CourseForm, sql: Session) -> Course:
     try:
-        if (
-            sql.execute(
-                select(models.User).where(models.User.user_id == course_data.teacher_id)
-            ).scalar_one_or_none()
-            is None
-        ):
+        check: Row[tuple[bool, bool]] = sql.execute(
+            select(
+                exists()
+                .where(models.User.user_id == course_data.teacher_id)
+                .label("teacher_exists"),
+                exists()
+                .where(models.Category.category_id == course_data.category_id)
+                .label("category_exists"),
+            )
+        ).one()
+        
+        if not check.teacher_exists:
             raise HTTPException(
                 status_code=404,
                 detail=f"Teacher with ID {course_data.teacher_id} not found",
             )
-
-        if (
-            sql.execute(
-                select(models.Category).where(
-                    models.Category.category_id == course_data.category_id
-                )
-            ).scalar_one_or_none()
-            is None
-        ):
+        if not check.category_exists:
             raise HTTPException(
                 status_code=404,
                 detail=f"Category with ID {course_data.category_id} not found",
@@ -86,6 +85,28 @@ def get_course(course_id: int, sql: Session) -> Course:
 
 def update_course(course_id: int, course_data: CourseForm, sql: Session) -> Course:
     try:
+        check: Row[tuple[bool, bool]] = sql.execute(
+            select(
+                exists()
+                .where(models.User.user_id == course_data.teacher_id)
+                .label("teacher_exists"),
+                exists()
+                .where(models.Category.category_id == course_data.category_id)
+                .label("category_exists"),
+            )
+        ).one()
+        
+        if not check.teacher_exists:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Teacher with ID {course_data.teacher_id} not found",
+            )
+        if not check.category_exists:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Category with ID {course_data.category_id} not found",
+            )
+
         stm: ReturningUpdate[tuple[Course]] = (
             update(models.Course)
             .where(models.Course.course_id == course_id)
@@ -97,6 +118,9 @@ def update_course(course_id: int, course_data: CourseForm, sql: Session) -> Cour
         sql.commit()
 
         return Course.model_validate(result)
+
+    except HTTPException as e:
+        raise e
 
     except IntegrityError as e:
         sql.rollback()
