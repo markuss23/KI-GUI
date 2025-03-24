@@ -2,7 +2,7 @@ import schemathesis
 # from hypothesis import settings, Phase
 # import pytest
 
-# pytest -v -p no:warnigs
+# pytest -v -p no:warnigs --html=report.html --self-contained-html
 # je potřeba mít spuštěný server na localhost:8000
 
 

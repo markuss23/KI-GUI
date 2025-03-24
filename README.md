@@ -344,3 +344,15 @@ Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řeši
 ahojdaaa
 
 ## 04
+
+### Testování API pomocí knihovny Schemathesis
+
+Testování API je klíčovým krokem v procesu vývoje backendových aplikací, protože pomáhá odhalit chyby, zajistit stabilitu a ověřit správnost implementace. Schemathesis je open-source nástroj určený pro automatizované testování API, který využívá specifikace OpenAPI (Swagger).
+
+Generuje automatické testy podle OpenAPI.
+
+Generuje podrobné reporty a umožňuje snadnou reprodukci chyb pomocí cURL.
+
+Ověřeno výzkumem – Akademické studie prokázaly jeho efektivitu v detekci chyb (1.4× až 4.5× více bugů než konkurence).
+
+[Schemathesis](https://schemathesis.readthedocs.io/en/stable/)
