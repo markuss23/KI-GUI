@@ -340,3 +340,5 @@ Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řeši
 [Dependencies - FastApi](https://fastapi.tiangolo.com/tutorial/dependencies/)
 
 ## 03
+
+## 04
