@@ -5,7 +5,7 @@ from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 from sqlalchemy.orm import Session
 
 from api import models
-from sqlalchemy import Delete, Row, Select, select, update, insert, delete
+from sqlalchemy import Row, Select, select, update, insert
 from sqlalchemy.exc import IntegrityError
 from api.src.task_completions.schemas import TaskCompletion, TaskCompletionForm
 from sqlalchemy.sql.expression import exists
@@ -38,7 +38,9 @@ def create_task_completion(
                 )
                 .label("enrollment_exists"),
                 exists()
-                .where(models.Task.task_id == validate_int(task_completion_data.task_id))
+                .where(
+                    models.Task.task_id == validate_int(task_completion_data.task_id)
+                )
                 .label("task_exists"),
             )
         ).one()
@@ -135,8 +137,11 @@ def update_task_completion(
 
 def delete_task_completion(task_completion_id: int, sql: Session) -> None:
     try:
-        stm: Delete = delete(models.TaskCompletion).where(
-            models.TaskCompletion.task_completion_id == task_completion_id
+        stm: ReturningUpdate[tuple[TaskCompletion]] = (
+            update(models.TaskCompletion)
+            .where(models.TaskCompletion.task_completion_id == task_completion_id)
+            .values(is_active=False)
+            .returning(models.TaskCompletion)
         )
 
         sql.execute(stm)
