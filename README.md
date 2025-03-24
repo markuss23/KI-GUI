@@ -338,3 +338,5 @@ A FastAPI to prověří za vás.
 Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řešit všechno okolo. Je to jako když máte super pomocníka, co za vás udělá spoustu práce!
 
 [Dependencies - FastApi](https://fastapi.tiangolo.com/tutorial/dependencies/)
+
+## 04
