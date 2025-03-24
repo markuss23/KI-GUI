@@ -9,7 +9,7 @@ class UserBase(BaseModel):
     first_name: str = Field(..., max_length=255, min_length=1)
     last_name: str = Field(..., max_length=255, min_length=1)
     email: str = Field(..., max_length=255, min_length=5)
-    role_id: int = Field(..., ge=1, le=9223372036854775807)
+    role_id: int = Field(..., ge=1, le=9223372036854775000)
 
 
 class User(UserBase):

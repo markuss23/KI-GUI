@@ -27,16 +27,22 @@ class EnrollmentBase(BaseModel):
     student_id: int = Field(
         title="Student ID",
         description="The ID of the student enrolled in the course",
+        ge=1,
+        le=9223372036854775000,
     )
 
     assigner_id: int = Field(
         title="Assigner ID",
         description="The ID of the user who assigned the enrollment",
+        ge=1,
+        le=9223372036854775000,
     )
 
     course_id: int = Field(
         title="Course ID",
         description="The ID of the course the student is enrolled in",
+        ge=1,
+        le=9223372036854775000,
     )
 
     model_config: ConfigDict = ConfigDict(

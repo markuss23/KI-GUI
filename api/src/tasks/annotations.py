@@ -15,7 +15,7 @@ def is_valid_task_id(
             title="Task ID",
             description="Task ID",
             ge=1,
-            le=9223372036854775807,  # 8 bytes int max value
+            le=9223372036854775000,  # 8 bytes int max value
         ),
     ],
     sql: SqlSessionDependency,

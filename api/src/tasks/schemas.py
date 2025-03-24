@@ -23,6 +23,8 @@ class TaskBase(BaseModel):
     course_id: int = Field(
         title="Course ID",
         description="The ID of the course the task belongs to",
+        ge=1,
+        le=9223372036854775000,
     )
 
     model_config: ConfigDict = ConfigDict(
