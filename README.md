@@ -378,7 +378,7 @@ fastapi_project/
 
 ![alt text](./images/DiagramCourses.png)
 
-Diagram znázorňuje strukturu tabulek a jejich vazeb v systému pro správu kurzů, úkolů a uživatelů:
+Diagram umožňuje efektivně spravovat uživatelské role, zápisy studentů do kurzů, přiřazené úkoly a monitorovat jejich stav dokončení.
 
 1. **Tabulka `role`**  
    - Uchovává informace o rolích uživatelů (např. student, učitel, administrátor).  
@@ -423,5 +423,3 @@ Diagram znázorňuje strukturu tabulek a jejich vazeb v systému pro správu kur
 - **`task_completions` ↔ `tasks`** – Určuje, který úkol byl splněn.
 - **`courses` ↔ `categories`** – Kurz spadá do konkrétní kategorie (přes `category_id`).
 - **`courses` ↔ `users`** – Kurz má přiřazeného učitele (přes `teacher_id`).
-
-Toto schéma umožňuje efektivně spravovat uživatelské role, zápisy studentů do kurzů, přiřazené úkoly a monitorovat jejich stav dokončení.
