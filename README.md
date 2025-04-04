@@ -341,6 +341,15 @@ Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řeši
 
 ## 03
 
+### Obsah
+
+- Vytváření organizace projektu
+- Vytváření Pydantic modelů
+- Schémata pro daný model
+- Využití anotací s Path parametry
+- Vytváření routerů pro CRUD operace
+- Rozdělení funkcionality do controllerů pro přehlednost
+
 ### Adresářová struktura
 
 Adresářová struktura slouží k přehlednému rozdělení projektu na logické části, což zjednodušuje jeho správu, čitelnost a udržitelnost. Díky jasně definovaným složkám a souborům lze například efektivně oddělit obchodní logiku, datové modely, testy a konfiguraci. Tím se usnadňuje spolupráce více vývojářů, rychlejší orientace v kódu a v neposlední řadě také zjednodušuje nasazení a další rozvoj projektu.
