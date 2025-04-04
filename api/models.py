@@ -3,6 +3,14 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import relationship
 
 
+"""
+Tento soubor definuje ORM modely pro SQLAlchemy, které reprezentují databázové tabulky a jejich vztahy.
+Každý model je reprezentován třídou, která dědí od `Base` třídy. Všechny modely mají definované sloupce a jejich datové typy.
+Vztahy mezi modely jsou definovány pomocí `relationship` funkce, která umožňuje snadný přístup k souvisejícím objektům.
+Vztahy pomáhají při navigaci mezi objekty a usnadňují práci s databází.
+"""
+
+
 class Base(DeclarativeBase):
     pass
 

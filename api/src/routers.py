@@ -8,6 +8,13 @@ from api.src.tasks.routers import router as tasks_router
 from api.src.enrollments.routers import router as enrollments_router
 from api.src.task_completions.routers import router as task_completions_router
 
+"""
+Tento soubor definuje router pro FastAPI aplikaci.
+Router je použit pro organizaci endpointů do modulárních částí.
+Každý modul má svůj vlastní router, který obsahuje definici endpointů pro danou část aplikace.
+"""
+
+
 router = APIRouter()
 
 router.include_router(roles_router)
