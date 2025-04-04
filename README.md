@@ -238,6 +238,15 @@ V Poetry umožňují `dependency groups` organizovat závislosti podle jejich ú
 
 ## 02
 
+## Obsah
+
+- Pydantic
+- Anotace
+- Validátory
+- Pydantic settings
+- Načítání settings z env souboru
+- Použití dependencies
+
 ## Pydantic
 
 Pydantic je nejpoužívanější knihovna pro validaci dat v jazyce Python.
