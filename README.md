@@ -526,3 +526,52 @@ app.add_middleware(
 ```
 
 [CORS - FastAPI](https://fastapi.tiangolo.com/tutorial/cors/)
+
+## 07
+
+### Deployment
+
+Workers (pracovníci) = paralelní procesy, které běží vedle sebe a obsluhují požadavky nezávisle na sobě.
+
+#### Workers ve FastAPI
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+- Tímto se spustí 4 oddělené procesy - každý má vlastní instancí FastAPI
+- Každý proces běží nezávisle typicky na jiném CPU
+- Pokud tvůj kód je synchronní (blokuje), to nevadí – další požadavky zpracuje jiný worker.
+
+#### Async def FastAPI
+
+- Asynchronní smyčka (event loop)
+- V rámci jednoho procesu může obsluhovat mnoho požadavků najednou, pokud nejsou blokující
+- V rámci jednoho procesu může obsluhovat mnoho požadavků najednou, pokud nejsou blokující
+
+#### Porovnání: sync + workers vs. async def
+
+| Vlastnost            | --workers + sync                        | async def                                           |
+|----------------------|------------------------------------------|-----------------------------------------------------|
+| Paralelismus         | Na úrovni procesů                        | Na úrovni event loopu                               |
+| CPU-bound výkon      | Lepší (víc procesů = víc jader)          | Horší (1 event loop = 1 jádro)                      |
+| I/O-bound výkon      | OK, ale horší škálování                  | Výborný, pokud používáš async knihovny              |
+| Paměťová náročnost   | Vyšší (víc procesů, víc RAM)             | Nižší (1 proces)                                    |
+| Komplexita kódu      | Nižší (sync je jednodušší)               | Vyšší (async je těžší na debug a správné použití)   |
+
+#### Příkladný scénář
+
+Dejme tomu, že každý požadavek trvá 2 sekundy (např. spí nebo čeká na DB). Přijde 4× request najednou.
+
+#### Porovnání chování API při 4 souběžných požadavcích
+
+| Typ operace       | sync + 4 workers | async + 1 worker | sync + 1 worker |
+|-------------------|------------------|------------------|-----------------|
+| Blokující operace | ✅ ~2s           | ❌ ~8s           | ❌ ~8s          |
+| Async operace     | ✅ ~2s           | ✅ ~2s           | ❌ ~8s          |
+
+Vygenerováno ChatGPT z důvodu nedostatku dokumentace.
+
+## Disclaimer
+
+V tomto projektu záměrně nevyužíváme asynchronní přístup, neboť by to vyžadovalo kompletní transformaci kódu a zachování konzistentní asynchronní architektury, což by bylo vzhledem k přínosům náročné. Navíc synchronní přístup je jednodušší na implementaci.
