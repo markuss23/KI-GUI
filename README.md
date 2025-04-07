@@ -467,3 +467,35 @@ Generuje podrobné reporty a umožňuje snadnou reprodukci chyb pomocí cURL.
 Ověřeno výzkumem – Akademické studie prokázaly jeho efektivitu v detekci chyb (1.4× až 4.5× více bugů než konkurence).
 
 [Schemathesis](https://schemathesis.readthedocs.io/en/stable/)
+
+## 05
+
+### Middleware
+
+Middleware je funkce, která pracuje s každým požadavkem, než je zpracován jakoukoliv path operací. A také pracuje s každou odpovědí než ji vrátí.
+
+- Bere každý požadavek aplikace
+- Může s požadavkem něco udělat, popřípadě spustit nějaký kód
+- Pak pošle požadavek ke zpracování zbytku aplikace
+- Následovně vezme odpověď z aplikace
+- Může nadále provést něco s odpovědí či spustit potřebný kód
+- Nakonec vrátí odpověď
+
+#### Vytvoření middlewaru
+
+Abyste vytvořili middleware použijete dekorátor například  `@app.middleware("https")`.
+
+ Middleware funkce přijímá:
+
+- Request
+- Funkci call_next, která přijímá request jako parametr. Tato funkce přidá odpovídající požadavek path operaci. Následně vrátí odpověd odpovídající path operaci.
+- Poté je možnost upravit odpověď před vrácením
+
+### Využití
+
+Middleware se nejčastěji využívá:
+
+- Logování a monitorování - informace o požadavcích a odpovědích
+- Autentizace a autorizace - ověření platného tokenu či kontrola oprávnění
+- Validace a úprava požadavků  - kontrola a úprava dat ještě před zpracováním
+- Úpravy odchozí odpovědi - úprava struktury odchozích dat, formát chybových hlášení atd.
