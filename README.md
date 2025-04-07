@@ -29,6 +29,7 @@ projekt běží na adrese `0.0.0.0:8000`
 ## Pokud nebude fungovat docker :)
 
 `uvicorn api.main:app --reload` - spuštění projektu v uvicornu `--reload` při změně se znovu načtou změny
+
 ## 01
 
 Obsah Prvího zachytnéo bodu.
@@ -246,5 +247,3 @@ V Poetry umožňují `dependency groups` organizovat závislosti podle jejich ú
 4. `poetry install --only docs`
 
 [Poetry](https://python-poetry.org/docs/)
-
-něco pišu zde
