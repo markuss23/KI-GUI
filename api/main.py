@@ -25,3 +25,11 @@ def read_item(asd_id) -> dict:
     return {
         "asd_id": asd_id,
     }
+
+
+@app.get("/asd/{asd_id}/items/{item_id}")
+def read_item(asd_id, item_id) -> dict:
+    return {
+        "asd_id": asd_id,
+        "item_id": item_id,
+    }
