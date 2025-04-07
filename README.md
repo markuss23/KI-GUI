@@ -499,3 +499,30 @@ Middleware se nejčastěji využívá:
 - Autentizace a autorizace - ověření platného tokenu či kontrola oprávnění
 - Validace a úprava požadavků  - kontrola a úprava dat ještě před zpracováním
 - Úpravy odchozí odpovědi - úprava struktury odchozích dat, formát chybových hlášení atd.
+
+## 06
+
+### CORS
+
+CORS (Cross-Origin Resource Sharing) je bezpečnostní mechanismus zabraňující prohlížečům posílat požadavky mezi různými doménami bez výslovného povolení serveru. Pokud klient (front-end) běží na jiné doméně (nebo portu) než server (back-end), je třeba CORS správně nastavit, aby prohlížeč požadavky neblokoval.
+
+```bash
+
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,          # Domény, které mohou váš back-end oslovovat
+    allow_credentials=True,         # Umožní odesílat i autorizační údaje (cookies, …)
+    allow_methods=["*"],            # Povolené HTTP metody (GET, POST, PUT, DELETE, …)
+    allow_headers=["*"],            # Povolené hlavičky v requestech
+)
+
+```
+
+[CORS - FastAPI](https://fastapi.tiangolo.com/tutorial/cors/)
