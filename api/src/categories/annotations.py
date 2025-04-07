@@ -8,7 +8,18 @@ from api.database import SqlSessionDependency
 from sqlalchemy import select
 
 
-def is_valid_category_id(category_id: int, sql: SqlSessionDependency) -> int:
+def is_valid_category_id(
+    category_id: Annotated[
+        int,
+        Path(
+            title="Category ID",
+            description="Category ID",
+            ge=1,
+            le=9223372036854775000,  # 8 bytes int max value
+        ),
+    ],
+    sql: SqlSessionDependency,
+) -> int:
     try:
         if (
             sql.execute(
@@ -26,12 +37,4 @@ def is_valid_category_id(category_id: int, sql: SqlSessionDependency) -> int:
         raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
 
 
-ID_CATEGORY_PATH_ANNOTATION = Annotated[
-    int,
-    Path(
-        title="Categpry ID",
-        description="Category ID",
-        gt=0,
-    ),
-    Depends(is_valid_category_id),
-]
+ID_CATEGORY_PATH_ANNOTATION = Annotated[int, Depends(is_valid_category_id)]

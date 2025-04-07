@@ -5,7 +5,7 @@ from sqlalchemy.sql.dml import ReturningInsert, ReturningUpdate
 from sqlalchemy.orm import Session
 
 from api import models
-from sqlalchemy import Delete, Select, select, update, insert, delete
+from sqlalchemy import Select, select, update, insert
 from sqlalchemy.exc import IntegrityError
 from api.src.roles.schemas import Role, RoleForm
 
@@ -72,20 +72,6 @@ def update_role(role_id: int, role_data: RoleForm, sql: Session) -> Role:
         sql.rollback()
         print(e)
         raise HTTPException(status_code=409, detail=e.args[0]) from e
-    except Exception as e:
-        sql.rollback()
-        print(e)
-        raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
-
-
-def delete_role(role_id: int, sql: Session) -> None:
-    try:
-        stm: Delete = delete(models.Role).where(models.Role.role_id == role_id)
-
-        sql.execute(stm)
-
-        sql.commit()
-
     except Exception as e:
         sql.rollback()
         print(e)

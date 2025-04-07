@@ -8,12 +8,12 @@ from api.database import SqlSessionDependency
 from sqlalchemy import select
 
 
-def is_valid_course_id(
-    course_id: Annotated[
+def is_valid_task_completion_id(
+    task_completion_id: Annotated[
         int,
         Path(
-            title="Course ID",
-            description="Course ID",
+            title="TaskCompletion ID",
+            description="TaskCompletion ID",
             ge=1,
             le=9223372036854775000,  # 8 bytes int max value
         ),
@@ -23,13 +23,15 @@ def is_valid_course_id(
     try:
         if (
             sql.execute(
-                select(models.Course).where(models.Course.course_id == course_id)
+                select(models.TaskCompletion).where(
+                    models.TaskCompletion.task_completion_id == task_completion_id
+                )
             ).scalar_one_or_none()
             is None
         ):
-            raise HTTPException(status_code=404, detail="Course not found")
+            raise HTTPException(status_code=404, detail="TaskCompletion not found")
 
-        return course_id
+        return task_completion_id
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -37,4 +39,6 @@ def is_valid_course_id(
         raise HTTPException(status_code=500, detail="Unexpected error occurs.") from e
 
 
-ID_COURSE_PATH_ANNOTATION = Annotated[int, Depends(is_valid_course_id)]
+ID_TASK_COMPLETION_PATH_ANNOTATION = Annotated[
+    int, Depends(is_valid_task_completion_id)
+]

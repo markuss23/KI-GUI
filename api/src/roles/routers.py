@@ -4,7 +4,6 @@ from api.database import SqlSessionDependency
 from api.src.roles.annotations import ID_ROLE_PATH_ANNOTATION
 from api.src.roles.controllers import (
     create_role,
-    delete_role,
     get_role,
     get_roles,
     update_role,
@@ -44,11 +43,3 @@ def endpoint_update_role(
     sql: SqlSessionDependency,
 ) -> Role:
     return update_role(role_id, role_data, sql)
-
-
-@router.delete("/{role_id}", status_code=204, operation_id="delete_role")
-def endpoint_delete_role(
-    role_id: ID_ROLE_PATH_ANNOTATION,
-    sql: SqlSessionDependency,
-) -> None:
-    return delete_role(role_id, sql)

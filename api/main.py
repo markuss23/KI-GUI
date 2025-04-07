@@ -27,4 +27,7 @@ def health_check(
     return {"status": "ok", "db": "ok"}
 
 
+# Připojení routeru k aplikaci
+# router - router, který obsahuje definice endpointů
+# include_router - metoda pro připojení routeru k aplikaci
 app.include_router(router=router)

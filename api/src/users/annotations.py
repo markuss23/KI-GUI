@@ -5,6 +5,18 @@ from typing import Annotated
 from api import models
 from api.database import SqlSessionDependency
 
+"""
+Anotace pro uživatelské ID
+
+Jedná se o funkci, která očekává Path parametr `user_id` a SQL session jako depends.
+Funkce provádí dotaz do databáze a ověřuje, zda uživatelské ID existuje.
+
+Výhodou této funkce je, že to spadne sem dříve, než se dostaneme do controlleru.
+
+Pokud ID neexistuje, vyvolá HTTP výjimku 404 (Not Found).
+Pokud dojde k jiné chybě, vyvolá HTTP výjimku 500 (Internal Server Error).
+"""
+
 
 def is_valid_user_id(
     user_id: Annotated[
@@ -13,7 +25,7 @@ def is_valid_user_id(
             title="User ID",
             description="User ID",
             ge=1,
-            le=9223372036854775807,  # 8 bytes int max value
+            le=9223372036854775000,  # 8 bytes int max value
         ),
     ],
     sql: SqlSessionDependency,

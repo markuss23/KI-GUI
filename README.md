@@ -6,17 +6,29 @@
 
 ## Instalace projektu z github
 
-1. `git clone <repo>`
+1. `git clone <repo> -b here-we-start`
 2. `cd <repo>`
 3. `python -m venv .venv`
-4. Pro Linux `source .venv/bin/activate`, Pro Windows `/.venv/Scripts/Activate.ps1`
+4. Pro Linux `source .venv/bin/activate`, Pro Windows `/.venv/Scripts/Activate.ps1` (popřípadě - activate.bat) - prosím ne windows `;)`
 5. `pip install -r requirements.txt`
+
+Z důvodu ušetření času. Ruff nebudeme instalovat do vscode.
+Pojede se hezky z terminálu.
+
+[Rules](https://docs.astral.sh/ruff/rules/)
+
+1. `ruff check --watch` - Python Linter, hlídá  chyby v kódu podle rules viz. link
+2. `ruff format` - Zformátuje kód podle knihovny Black
 
 ## Spuštění projektu v dockeru
 
 projekt běží na adrese `0.0.0.0:8000`
 
 `docker-compose up --build`
+
+## Pokud nebude fungovat docker :)
+
+`uvicorn api.main:app --reload` - spuštění projektu v uvicornu `--reload` při změně se znovu načtou změny
 
 ## 01
 
@@ -238,6 +250,15 @@ V Poetry umožňují `dependency groups` organizovat závislosti podle jejich ú
 
 ## 02
 
+## Obsah
+
+- Pydantic
+- Anotace
+- Validátory
+- Pydantic settings
+- Načítání settings z env souboru
+- Použití dependencies
+
 ## Pydantic
 
 Pydantic je nejpoužívanější knihovna pro validaci dat v jazyce Python.
@@ -341,7 +362,97 @@ Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řeši
 
 ## 03
 
-ahojdaaa
+### Obsah
+
+- Vytváření organizace projektu
+- Vytváření Pydantic modelů
+- Schémata pro daný model
+- Využití anotací s Path parametry
+- Vytváření routerů pro CRUD operace
+- Rozdělení funkcionality do controllerů pro přehlednost
+
+### Adresářová struktura
+
+Adresářová struktura slouží k přehlednému rozdělení projektu na logické části, což zjednodušuje jeho správu, čitelnost a udržitelnost. Díky jasně definovaným složkám a souborům lze například efektivně oddělit obchodní logiku, datové modely, testy a konfiguraci. Tím se usnadňuje spolupráce více vývojářů, rychlejší orientace v kódu a v neposlední řadě také zjednodušuje nasazení a další rozvoj projektu.
+
+```bash
+fastapi_project/
+├── src/
+│   ├── items/               # Modul "items" s routami, kontrolery a schématy
+│   │   ├── controllers.py   # Aplikační logika pro "items"
+│   │   ├── routers.py       # Endpointy pro "items"
+│   │   └── schemas.py       # Pydantic schémata pro "items"
+│   ├── users/               # Modul "users" (příklad pro další entitu)
+│   │   ├── controllers.py
+│   │   ├── routers.py
+│   │   └── schemas.py
+│   └── __init__.py
+├── config.py                # Konfigurace aplikace (Pydantic Settings)
+├── db.py                    # Připojení k databázi (SQLAlchemy, MongoDB)
+├── models.py                # Definice SQLAlchemy modelů
+├── main.py                  # Vstupní bod aplikace (FastAPI instance)
+├── tests/                   # Testy (Pytest)
+│   ├── test_items.py
+│   ├── test_users.py
+│   └── conftest.py
+├── .env                     # Konfigurace prostředí (např. DATABASE_URL)
+├── .gitignore               # Ignorované soubory Git
+├── Dockerfile               # Docker kontejner pro aplikaci
+├── docker-compose.yml       # Docker Compose (DB, Redis apod.)
+├── pyproject.toml           # Konfigurace projektu (Poetry)
+├── requirements.txt         # Závislosti (pokud se nepoužívá Poetry)
+└── README.md                # Dokumentace projektu
+```
+
+### ERD
+
+![alt text](./images/DiagramCourses.png)
+
+Diagram umožňuje efektivně spravovat uživatelské role, zápisy studentů do kurzů, přiřazené úkoly a monitorovat jejich stav dokončení.
+
+1. **Tabulka `role`**  
+   - Uchovává informace o rolích uživatelů (např. student, učitel, administrátor).  
+   - Obsahuje sloupce `role_id`, `name` a `description`.
+
+2. **Tabulka `users`**  
+   - Uchovává základní údaje o uživatelích (jméno, příjmení, e-mail, přihlašovací údaje) a odkaz na jejich roli přes `role_id`.  
+   - Obsahuje  `user_id`, `username`, `password_hash`, `email`, `role_id`, `is_active`.
+
+3. **Tabulka `enrollments`**  
+   - Zaznamenává informace o zápisu studenta do kurzu:
+     - `student_id` (kdo se účastní kurzu)
+     - `assigner_id` (kdo zápis přiřadil)
+     - údaje o datech zápisu (`enrolled_at`) a dokončení (`completed_at`)
+     - deadline (`deadline`)
+     - příznak (`is_active`)
+   - Umožňuje sledování průběhu studia a stav dokončení kurzu.
+
+4. **Tabulka `courses`**  
+   - Uchovává přehled kurzů, jejich tituly (`title`), popisy (`description`), id učitele(`teacher_id`) a na kategorii (`category_id`).  
+   - Obsahuje i možnost deadlinu (`deadline_in_days`) a příznak `is_active`.
+
+5. **Tabulka `categories`**  
+   - Rozřazuje kurzy do tématických okruhů nebo předmětových kategorií.  
+   - Obsahuje `category_id`, `name`, `description`, `is_active`.
+
+6. **Tabulka `tasks`**  
+   - Vztahuje se ke kurzům (`course_id`) a definuje konkrétní úkoly či cvičení.  
+   - Obsahuje `task_id`, `title`, `description`, `is_active`.
+
+7. **Tabulka `task_completions`**  
+   - Spojuje dokončení konkrétního úkolu s konkrétním zápisem studenta (`enrollment_id`).  
+   - Obsahuje `task_completion_id`, `task_id`, datum splnění (`completed_at`) a příznak `is_active`.
+
+## Vztahy mezi tabulkami
+
+- **`users` ↔ `role`** – Každý uživatel má jednu roli (přes `role_id`).
+- **`enrollments` ↔ `users`** – `student_id` a `assigner_id` jsou cizí klíče do tabulky `users`.
+- **`enrollments` ↔ `courses`** – Informace o zapsání konkrétního studenta do konkrétního kurzu.
+- **`tasks` ↔ `courses`** – Každý úkol patří do konkrétního kurzu (přes `course_id`).
+- **`task_completions` ↔ `enrollments`** – Spojuje splnění úkolu s konkrétní „enrollment“.
+- **`task_completions` ↔ `tasks`** – Určuje, který úkol byl splněn.
+- **`courses` ↔ `categories`** – Kurz spadá do konkrétní kategorie (přes `category_id`).
+- **`courses` ↔ `users`** – Kurz má přiřazeného učitele (přes `teacher_id`).
 
 ## 04
 
