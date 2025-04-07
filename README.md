@@ -362,7 +362,7 @@ Vy se pak můžete soustředit jen na to, co chcete postavit, a nemusíte řeši
 
 ## 03
 
-### Obsah
+### Obsah 03
 
 - Vytváření organizace projektu
 - Vytváření Pydantic modelů
