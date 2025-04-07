@@ -1,8 +1,9 @@
 import time
 from fastapi import FastAPI
-from api.database import SqlSessionDependency, init_db
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
+from api.database import SqlSessionDependency, init_db
 from api.src.routers import router
 from api.logger import logger
 
@@ -27,6 +28,31 @@ def health_check(
     sql.execute(text("SELECT 1")).first()
 
     return {"status": "ok", "db": "ok"}
+
+
+# CORS middleware
+# Slouží pro povolení CORS (Cross-Origin Resource Sharing)
+# CORS je bezpečnostní opatření, které omezuje přístup k API z jiných domén
+# allow_origins - seznam povolených domén
+# allow_credentials - povolení cookies a HTTP autentizace
+# allow_methods - povolené HTTP metody
+# allow_headers - povolené HTTP hlavičky
+# origins - seznam povolených domén
+# V tomto případě je povoleno všechno
+# (což není bezpečné pro produkční prostředí)
+# V produkčním prostředí by měly být povoleny pouze konkrétní domény
+origins: list[str] = [
+    "*",
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # Připojení routeru k aplikaci
