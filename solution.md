@@ -28,12 +28,12 @@ books = [
 
 
 @app.get("/books")
-def get_all_books() -> list[dict[]]:
+def get_all_books() -> list[dict]:
     return books
 
 
 @app.post("/books")
-def create_book(book: dict[]) -> dict[]:
+def create_book(book: dict) -> dict:
     book_id = len(books) + 1
     book["id"] = book_id
     books.append(book)
@@ -41,7 +41,7 @@ def create_book(book: dict[]) -> dict[]:
 
 
 @app.get("/books/{book_id}")
-def get_book(book_id: int) -> dict[]:
+def get_book(book_id: int) -> dict:
     for book in books:
         if book["id"] == book_id:
             return book
@@ -49,7 +49,7 @@ def get_book(book_id: int) -> dict[]:
 
 
 @app.put("/books/{book_id}")
-def update_book(book_id: int, updated_book: dict[]) -> dict[]:
+def update_book(book_id: int, updated_book: dict) -> dict:
     for book in books:
         if book["id"] == book_id:
             book.update(updated_book)
@@ -58,7 +58,7 @@ def update_book(book_id: int, updated_book: dict[]) -> dict[]:
 
 
 @app.delete("/books/{book_id}")
-def delete_book(book_id: int) -> dict[]:
+def delete_book(book_id: int) -> dict:
     for book in books:
         if book["id"] == book_id:
             books.remove(book)
