@@ -575,3 +575,8 @@ Vygenerováno ChatGPT z důvodu nedostatku dokumentace.
 ## Disclaimer
 
 V tomto projektu záměrně nevyužíváme asynchronní přístup, neboť by to vyžadovalo kompletní transformaci kódu a zachování konzistentní asynchronní architektury, což by bylo vzhledem k přínosům náročné. Navíc synchronní přístup je jednodušší na implementaci.
+
+| Měření (Run)     | Async test 1 (s) | Async test 2 (s) | Async test 3 (s) | Průměr Async (s) | Worker test 1 (s) | Worker test 2 (s) | Worker test 3 (s) | Průměr Worker (s) |
+|------------------|------------------|------------------|------------------|------------------|--------------------|--------------------|--------------------|---------------------|
+| První měření     | 1.4991           | 4.2614           | 10.0955          | 5.9364           | 7.6571             | 1.6365             | 2.3129             | 3.8688              |
+| Druhé měření     | 1.7591           | 9.2658           | 12.6191          | 7.8813           | 7.4748             | 1.2358             | 8.7693             | 5.8266              |
