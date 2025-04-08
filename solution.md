@@ -28,12 +28,12 @@ books = [
 
 
 @app.get("/books")
-def get_all_books():
+def get_all_books() -> List[Dict[str, Any]]:
     return books
 
 
 @app.post("/books")
-def create_book(book: dict):
+def create_book(book: Dict[str, Any]) -> Dict[str, Any]:
     book_id = len(books) + 1
     book["id"] = book_id
     books.append(book)
@@ -41,7 +41,7 @@ def create_book(book: dict):
 
 
 @app.get("/books/{book_id}")
-def get_book(book_id: int):
+def get_book(book_id: int) -> Dict[str, Any]:
     for book in books:
         if book["id"] == book_id:
             return book
@@ -49,7 +49,7 @@ def get_book(book_id: int):
 
 
 @app.put("/books/{book_id}")
-def update_book(book_id: int, updated_book: dict):
+def update_book(book_id: int, updated_book: Dict[str, Any]) -> Dict[str, Any]:
     for book in books:
         if book["id"] == book_id:
             book.update(updated_book)
@@ -58,10 +58,10 @@ def update_book(book_id: int, updated_book: dict):
 
 
 @app.delete("/books/{book_id}")
-def delete_book(book_id: int):
+def delete_book(book_id: int) -> Dict[str, str]:
     for book in books:
         if book["id"] == book_id:
             books.remove(book)
             return {"message": "Book deleted successfully"}
-
+    raise HTTPException(status_code=404, detail="Book not found")
 ```
