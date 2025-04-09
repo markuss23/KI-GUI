@@ -23,17 +23,28 @@ Funkce `init_db` inicializuje databázi a vytváří všechny tabulky definovan�
 sqlite_file_name: str = settings.sql.name
 sqlite_url: str = f"sqlite:///{sqlite_file_name}.db"
 
+# specifikace pro sqlite - umožňuje více vláknům přístup k databázi
 connect_args: dict[str, bool] = {"check_same_thread": False}
 
+# vytvoření motoru pro připojení k databázi
 engine: Engine = create_engine(sqlite_url, connect_args=connect_args)
 
-
+# pracovní prostředí pro databázi
+# autocommit - automatické potvrzení transakcí - chci mít pod kontrolou, kdy se potvrzuje
+# autoflush - automatické vyprázdnění relace před dotazem - ručně si řídit, kdy se co odešle.
+# bind - připojení k motoru
+# sessionmaker - továrna na relace
+# vytváří relaci pro práci s databází
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def get_sql() -> Generator[Session, Any, None]:
+    """funkce vytváří, poskytuje a následně uzavírá databázovou relaci (session) pro každý HTTP požadavek.
+    
+    """
     db: Session = SessionLocal()
     try:
+        # Dočasně předá kontrolu zpět volajícímu a poskytne mu databázovou relaci
         yield db
     finally:
         db.close()
