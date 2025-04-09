@@ -8,4 +8,7 @@ services:
     restart: always
     volumes:
       - ./api:/code/api
+      - ./logs:/code/logs
+    env_file:
+      - .env
     
