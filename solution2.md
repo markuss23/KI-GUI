@@ -81,8 +81,7 @@ def update_book(book_id: ID_BOOK_PATH_ANNOTATION, updated_book: BookUpdate) -> B
             book_data = book.model_dump()
             updated_data = updated_book.model_dump(exclude_unset=True, exclude_none=True)
             book_data.update(updated_data)
-            print(book_data)
-            print(updated_data)
+            
             final_book: Book = Book.model_validate(book_data)
             books[i] = final_book
             return final_book
